@@ -1,0 +1,99 @@
+---
+const stats = [
+  { num: '14',  label: 'Landing pages en producción' },
+  { num: '3+',  label: 'Años en automatización' },
+  { num: '5+',  label: 'Herramientas RPA dominadas' },
+  { num: 'SV',  label: 'El Salvador 🇸🇻' },
+];
+---
+<section id="about">
+  <p class="section-label">// Sobre mí</p>
+  <h2 class="section-title">Quién soy</h2>
+  <div class="about-grid">
+
+    <div class="about-text">
+      <p>Soy <strong>Edwin Villalobos</strong>, desarrollador web y especialista en automatización basado en <strong>El Salvador</strong>. Me especializo en construir sistemas que conectan lo visual con lo funcional.</p>
+      <p>Actualmente trabajo en <strong>PROMAICA S.A. de C.V.</strong> donde lidero el desarrollo de una red de landing pages con Astro y flujos de automatización con Power Platform.</p>
+      <p>En paralelo ofrezco servicios freelance en <strong>Fiverr</strong> — tutorías de Power Automate, diseño de flujos RPA y automatizaciones a medida para clientes de todo el mundo.</p>
+      <p>Me interesa la seguridad informática, el análisis de datos y seguir explorando los rincones de El Salvador.</p>
+    </div>
+
+    <div class="about-stats">
+      {stats.map(s => (
+        <div class="stat-box">
+          <div class="stat-num">{s.num}</div>
+          <div class="stat-label">{s.label}</div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 1.25rem;
+    line-height: 1.8;
+  }
+
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .stat-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .stat-box.visible { opacity: 1; }
+
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+
+  @media (max-width: 640px) {
+    .about-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.stat-box').forEach(el => observer.observe(el));
+</script>

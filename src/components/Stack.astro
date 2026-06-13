@@ -1,0 +1,85 @@
+---
+const stack = [
+  { icon: '🚀', name: 'Astro',          cat: 'Web Framework' },
+  { icon: '⚡', name: 'Power Automate', cat: 'Automatización' },
+  { icon: '🤖', name: 'UiPath / RPA',   cat: 'RPA' },
+  { icon: '🟦', name: 'Power Apps',     cat: 'Low-code' },
+  { icon: '🌐', name: 'WordPress',      cat: 'Headless CMS' },
+  { icon: '🐍', name: 'Python',         cat: 'Scripting' },
+  { icon: '🔁', name: 'N8N',            cat: 'Workflows' },
+  { icon: '📊', name: 'Excel / VBA',    cat: 'Reporting' },
+  { icon: '🔷', name: 'TypeScript',     cat: 'Lenguaje' },
+  { icon: '🎨', name: 'CSS / Tailwind', cat: 'Estilos' },
+  { icon: '🗺️', name: 'Leaflet',        cat: 'Mapas' },
+  { icon: '🔗', name: 'GitHub Actions', cat: 'CI/CD' },
+];
+---
+<section id="stack">
+  <p class="section-label">// Tecnologías</p>
+  <h2 class="section-title">Mi Stack</h2>
+  <div class="stack-grid">
+    {stack.map(item => (
+      <div class="stack-item">
+        <div class="stack-icon">{item.icon}</div>
+        <div class="stack-name">{item.name}</div>
+        <div class="stack-cat">{item.cat}</div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .stack-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+    opacity: 0;
+  }
+
+  .stack-item.visible {
+    opacity: 1;
+    transition: opacity 0.5s ease, border-color 0.2s, transform 0.2s;
+  }
+
+  .stack-item:hover {
+    border-color: rgba(255, 221, 0, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .stack-icon { font-size: 22px; }
+
+  .stack-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .stack-cat {
+    font-size: 11px;
+    color: var(--muted);
+  }
+</style>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.stack-item').forEach(el => observer.observe(el));
+</script>

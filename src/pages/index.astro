@@ -1,17 +1,42 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Stack from '../components/Stack.astro';
+import Projects from '../components/Projects.astro';
+import About from '../components/About.astro';
+import Contact from '../components/Contact.astro';
 ---
+<BaseLayout>
+  <Navbar />
+  <Hero />
+  <div class="divider"></div>
+  <Stack />
+  <div class="divider"></div>
+  <Projects />
+  <div class="divider"></div>
+  <About />
+  <div class="divider"></div>
+  <Contact />
+  <footer>
+    <p>// Edwin Villalobos · El Salvador · <span id="year"></span> — Deployed en GitHub Pages.</p>
+  </footer>
+</BaseLayout>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<style>
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    text-align: center;
+  }
+  footer p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+  }
+</style>
+
+<script>
+  const el = document.getElementById('year');
+  if (el) el.textContent = String(new Date().getFullYear());
+</script>
